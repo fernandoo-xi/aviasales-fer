@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from './checkbox.module.scss'
+import styles from './checkbox.module.scss';
 
 function Checkbox({ id, children, changeHandler, value }) {
-  const htmlFor = `checkbox-${id}`
+  const htmlFor = `checkbox-${id}`;
   return (
     <label htmlFor={htmlFor} className={styles.check}>
       <input
@@ -17,13 +17,13 @@ function Checkbox({ id, children, changeHandler, value }) {
       <span className={styles.check__box} />
       {children}
     </label>
-  )
+  );
 }
 
 Checkbox.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   changeHandler: PropTypes.func.isRequired,
   value: PropTypes.bool.isRequired,
-}
+};
 
-export default React.memo(Checkbox)
+export default React.memo(Checkbox);

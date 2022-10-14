@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { filterTickets, sortTickets } from '../../redux/slices/filtredTicketsSlice'
-import { setTransfersFilters, setAllTransfers } from '../../redux/slices/transfersFormSlice'
-import Checkbox from '../UI/checkbox/checkbox'
+import { filterTickets, sortTickets } from '../../redux/slices/filtredTicketsSlice';
+import { setTransfersFilters, setAllTransfers } from '../../redux/slices/transfersFormSlice';
+import Checkbox from '../UI/checkbox/checkbox';
 
-import styles from './transfersForm.module.scss'
+import styles from './transfersForm.module.scss';
 
 const checkBoxes = [
   { id: 'all', name: 'all', label: 'Все' },
@@ -13,22 +13,22 @@ const checkBoxes = [
   { id: 1, name: 'transfer_1', label: '1 пересадка' },
   { id: 2, name: 'transfer_2', label: '2 пересадки' },
   { id: 3, name: 'transfer_3', label: '3 пересадки' },
-]
+];
 
 function TransfersFrom() {
-  const filtersValues = useSelector((state) => state.transfersFilter)
-  const dispatch = useDispatch()
+  const filtersValues = useSelector((state) => state.transfersFilter);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(filterTickets()).then(() => dispatch(sortTickets()))
-  }, [filtersValues])
+    dispatch(filterTickets()).then(() => dispatch(sortTickets()));
+  }, [filtersValues]);
 
   const changeHandler = useCallback(
     (id, value) => {
-      dispatch(id === 'all' ? setAllTransfers({ [id]: !value }) : setTransfersFilters({ [id]: !value }))
+      dispatch(id === 'all' ? setAllTransfers({ [id]: !value }) : setTransfersFilters({ [id]: !value }));
     },
     [dispatch]
-  )
+  );
 
   const transfers = checkBoxes.map((box) => (
     <Checkbox
@@ -39,7 +39,7 @@ function TransfersFrom() {
     >
       {box.label}
     </Checkbox>
-  ))
+  ));
 
   return (
     <form className={styles.form}>
@@ -48,7 +48,7 @@ function TransfersFrom() {
         {transfers}
       </fieldset>
     </form>
-  )
+  );
 }
 
-export default React.memo(TransfersFrom)
+export default React.memo(TransfersFrom);

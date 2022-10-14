@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Segment from './segment'
-import styles from './ticket.module.scss'
+import Segment from './segment';
+import styles from './ticket.module.scss';
 
 function Ticket({ ticket }) {
-  const segments = ticket.segments.map((seg) => <Segment segment={seg} key={seg.date} />)
+  const segments = ticket.segments.map((seg) => <Segment segment={seg} key={seg.date} />);
 
   return (
     <div className={styles.ticket}>
@@ -19,7 +19,7 @@ function Ticket({ ticket }) {
       </header>
       {segments}
     </div>
-  )
+  );
 }
 
 Ticket.propTypes = {
@@ -30,6 +30,6 @@ Ticket.propTypes = {
       PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.arrayOf(PropTypes.string)]))
     ),
   }).isRequired,
-}
+};
 
-export default React.memo(Ticket)
+export default React.memo(Ticket);
