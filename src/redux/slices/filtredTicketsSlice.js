@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { CHEAP, FAST } from '../../constants';
+import { CHEAP, FAST, OPTIMAL } from '../../constants';
 
 const hasAnyEquiv = (a1, a2) => {
   const set1 = new Set(a1);
@@ -34,6 +34,12 @@ const sumDuration = (segments) =>
 
 const compareByDuration = (a, b) => sumDuration(a.segments) - sumDuration(b.segments);
 
+const compareByOptimal = (a, b) => {
+  const first = a.segments[0].duration + a.segments[1].duration + +a.price;
+  const second = b.segments[0].duration + b.segments[1].duration + +b.price;
+  return first - second;
+};
+
 export const filterTickets = createAsyncThunk('filterTickets', (_, { getState }) => {
   const filtred = filterByTransfers(getState().tickets.tickets, getState().transfersFilter.countsOfTransfer);
   return filtred;
@@ -45,6 +51,8 @@ export const sortTickets = createAsyncThunk('sortTickets', (_, { getState }) => 
       return sortTicketsByCompare(getState().filtredTickets, compareByPrice);
     case FAST:
       return sortTicketsByCompare(getState().filtredTickets, compareByDuration);
+    case OPTIMAL:
+      return sortTicketsByCompare(getState().filtredTickets, compareByOptimal);
     default:
       return getState().filtredTickets;
   }
@@ -59,7 +67,5 @@ export const filtredTicketsSlice = createSlice({
     [sortTickets.fulfilled]: (state, action) => action.payload,
   },
 });
-
-// export const { filterTicktes } = filtredTicketsSlice.actions
 
 export default filtredTicketsSlice.reducer;

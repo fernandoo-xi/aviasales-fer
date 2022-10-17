@@ -3,7 +3,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchTickets = createAsyncThunk('search/fetchTickets', async (searchID, { extra }) => {
   const service = extra;
+
   const data = await service.getTickets(searchID);
+
   return data;
 });
 
